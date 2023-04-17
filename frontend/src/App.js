@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
+import CreatePost from "./pages/CreatePost";
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route  path="/login" exact element={<Login/>}/>
         <Route  path="/signup" exact element={<Signup/>}/>
         <Route  path="/profile" exact element={<Profile/>}/>
+        <Route  path="/create-post" exact element={<CreatePost/>}/>
       </Routes>
     </BrowserRouter>
   );

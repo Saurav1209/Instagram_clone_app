@@ -9,7 +9,7 @@ function Signup() {
         <input type="text" placeholder="Full name"/>
         <input type="text" placeholder="Email"/>
         <input type="password" placeholder="Password"/>
-        <button className="btn waves-effect waves-light btn #64b5f6 blue lighten-2">Signup</button>
+        <button className="btn waves-effect waves-light btn #64b5f6 blue darken-1">Signup</button>
         <h6>
           <Link to="/login">Already have an account ?</Link>
         </h6>
