@@ -1,11 +1,16 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import './Home.css'
 
 function Home() {
+  const [posts, setPosts] = useState([]);//initialising empty array
+  useEffect(()=>{
+      
+    
+  },[]);//load only once when component is mounting/loading
   return (
     <div className="home-container">
       <div className="card home-card">
-        <h5>John Doe</h5>
+        <h5 style={{padding:"10px"}}>John Doe</h5>
          <div className="card-image">
           <img src="https://media.istockphoto.com/id/1392944438/nl/foto/portrait-of-handsome-attractive-positive-curly-haired-indian-or-arabian-guy-wearing-white.jpg?s=612x612&w=0&k=20&c=PpDoDdF1_3Jo8WDJsv2CYibbAwHdxzjX_v3mClz2nbQ="/>
 
@@ -19,7 +24,7 @@ function Home() {
 
       </div>
       <div className="card home-card">
-        <h5>John Doe</h5>
+        <h5 style={{padding:"10px"}}>John Doe</h5>
          <div className="card-image">
           <img src="https://media.istockphoto.com/id/1392944438/nl/foto/portrait-of-handsome-attractive-positive-curly-haired-indian-or-arabian-guy-wearing-white.jpg?s=612x612&w=0&k=20&c=PpDoDdF1_3Jo8WDJsv2CYibbAwHdxzjX_v3mClz2nbQ="/>
 
@@ -33,7 +38,7 @@ function Home() {
 
       </div>
       <div className="card home-card">
-        <h5>John Doe</h5>
+        <h5 style={{padding:"10px"}}>John Doe</h5>
          <div className="card-image">
           <img src="https://media.istockphoto.com/id/1392944438/nl/foto/portrait-of-handsome-attractive-positive-curly-haired-indian-or-arabian-guy-wearing-white.jpg?s=612x612&w=0&k=20&c=PpDoDdF1_3Jo8WDJsv2CYibbAwHdxzjX_v3mClz2nbQ="/>
 
