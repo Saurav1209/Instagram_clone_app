@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
+import M from 'materialize-css'
+
 function Signup() {
   const [fullName,setFullName] = useState("");
   const [email,setEmail] = useState("");
@@ -20,6 +22,9 @@ function Signup() {
     .then(response=>response.json())
     .then(function(data){
       console.log(data);
+      if(data.error){
+        M.toast({html : data.error})
+      }
     });
   }
 
