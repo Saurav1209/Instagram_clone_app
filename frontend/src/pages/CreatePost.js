@@ -38,9 +38,7 @@ function CreatePost() {
             console.log(error);
         });
         }
-      
-        }
-    , [image]);
+      }, [image]);
 
     const submitPost = async ()=> {
 
