@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Link, useNavigate} from 'react-router-dom'
+import { Link, json, useNavigate} from 'react-router-dom'
 import M from 'materialize-css'
 function Login() {
 
@@ -14,8 +14,6 @@ function Login() {
       M.toast({html : "Enter valid email", classes: "#c62828 red darken-3"})
       return 
     }
-
-
 
     fetch("/login",{
       method:"post",
@@ -34,7 +32,10 @@ function Login() {
         M.toast({html : data.error, classes: "#c62828 red darken-3"})
       }
       else{
-        M.toast({html : "Lofin  Successful!", classes: "#388e3c green darken-2"});
+        localStorage.setItem("token", data.token) ;
+        localStorage.setItem("userInfo", JSON.stringify(data.userInfo)) ;
+
+        M.toast({html : "Login  Successful!", classes: "#388e3c green darken-2"});
         navigate("/")
       }
     })
