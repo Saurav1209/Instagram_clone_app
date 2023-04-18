@@ -1,13 +1,26 @@
 import React,{useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import M from 'materialize-css'
+import './Signup.css' ;
+
 
 function Signup() {
+
+  const navigate = useNavigate() ;
   const [fullName,setFullName] = useState("");
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
 
   const register = ()=>{
+
+    if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+    {
+      M.toast({html : "Enter valid email", classes: "#c62828 red darken-3"})
+      return 
+    }
+
+
+
     fetch("/register",{
       method:"post",
       headers : {
@@ -23,9 +36,16 @@ function Signup() {
     .then(function(data){
       console.log(data);
       if(data.error){
-        M.toast({html : data.error})
+        M.toast({html : data.error, classes: "#c62828 red darken-3"})
       }
-    });
+      else{
+        M.toast({html : data.result, classes: "#388e3c green darken-2"});
+        navigate("/login")
+      }
+    })
+    .catch((error)=>{
+      console.log(error);
+  });
   }
 
   return (
@@ -34,18 +54,20 @@ function Signup() {
         <h2>Instagram</h2>
         <input 
           type="text" placeholder="Full name"
-          value={email}
-          onChange={(event)=> setEmail(event.target.value)}  
+          value={fullName}
+          onChange={(event)=> setFullName(event.target.value)}
+          
         />
         <input 
           type="text" placeholder="Email"
-          value={password}
-          onChange={(event)=> setPassword(event.target.value)}
+          value={email}
+          onChange={(event)=> setEmail(event.target.value)}  
+         
         />
         <input 
           type="password" placeholder="Password"
-          value={fullName}
-          onChange={(event)=> setFullName(event.target.value)}
+          value={password}
+          onChange={(event)=> setPassword(event.target.value)}
         />
         <button onClick={()=>register()} className="btn waves-effect waves-light btn #64b5f6 blue darken-1">Signup</button>
         <h6>
