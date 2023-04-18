@@ -1,7 +1,7 @@
 const express = require('express') ;
 const app = express() ;
 const mongoose = require('mongoose') ;
-const PORT = 3000 ;
+const PORT = 5000 ;
 
 //  const{MONGODB_URI} = require('./config') ;
 const URL_MONGO="mongodb+srv://myappuser:sMjQJT5Y5Ui2LhoJ@cluster0.mpaikjr.mongodb.net/test"
