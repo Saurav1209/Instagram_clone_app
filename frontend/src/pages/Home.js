@@ -4,53 +4,42 @@ import './Home.css'
 function Home() {
   const [posts, setPosts] = useState([]);//initialising empty array
   useEffect(()=>{
-      
-    
+      fetch("/posts",{
+        method:"get",
+        headers : {
+          "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+      })
+      .then(response=>response.json())
+      .then(function(data){
+        console.log(data);
+        setPosts(data.posts);
+      })
+      .catch((error)=>{
+        console.log(error);
+      });
   },[]);//load only once when component is mounting/loading
   return (
     <div className="home-container">
-      <div className="card home-card">
-        <h5 style={{padding:"10px"}}>John Doe</h5>
-         <div className="card-image">
-          <img src="https://media.istockphoto.com/id/1392944438/nl/foto/portrait-of-handsome-attractive-positive-curly-haired-indian-or-arabian-guy-wearing-white.jpg?s=612x612&w=0&k=20&c=PpDoDdF1_3Jo8WDJsv2CYibbAwHdxzjX_v3mClz2nbQ="/>
-
-         </div>
-         <div className="card-content">
-         <i className="material-icons" style={{color: "red"}}>favorite</i>
-          <h6>Post Title</h6>
-            <p>welcome to the virtual world</p>
-            <input  type = "text" placeholder=" Enter comment"/>
-         </div>
-
-      </div>
-      <div className="card home-card">
-        <h5 style={{padding:"10px"}}>John Doe</h5>
-         <div className="card-image">
-          <img src="https://media.istockphoto.com/id/1392944438/nl/foto/portrait-of-handsome-attractive-positive-curly-haired-indian-or-arabian-guy-wearing-white.jpg?s=612x612&w=0&k=20&c=PpDoDdF1_3Jo8WDJsv2CYibbAwHdxzjX_v3mClz2nbQ="/>
-
-         </div>
-         <div className="card-content">
-         <i className="material-icons" style={{color: "red"}}>favorite</i>
-          <h6>Post Title</h6>
-            <p>welcome to the virtual world</p>
-            <input  type = "text" placeholder=" Enter comment"/>
-         </div>
-
-      </div>
-      <div className="card home-card">
-        <h5 style={{padding:"10px"}}>John Doe</h5>
-         <div className="card-image">
-          <img src="https://media.istockphoto.com/id/1392944438/nl/foto/portrait-of-handsome-attractive-positive-curly-haired-indian-or-arabian-guy-wearing-white.jpg?s=612x612&w=0&k=20&c=PpDoDdF1_3Jo8WDJsv2CYibbAwHdxzjX_v3mClz2nbQ="/>
-
-         </div>
-         <div className="card-content">
-         <i className="material-icons" style={{color: "red"}}>favorite</i>
-          <h6>Post Title</h6>
-            <p>welcome to the virtual world</p>
-            <input  type = "text" placeholder=" Enter comment"/>
-         </div>
-
-      </div>
+        {
+            posts.map((post)=>{
+              return(
+                <div className="card home-card" key={post._id}>
+                  <h5 style={{padding:"10px"}}>{post.author.fullName}</h5>
+                    <div className="card-image">
+                    <img src={post.image}/>
+      
+                    </div>
+                    <div className="card-content">
+                    <i className="material-icons" style={{color: "red"}}>favorite</i>
+                    <h6>{post.title}</h6>
+                      <p>{post.body}</p>
+                      <input  type = "text" placeholder=" Enter comment"/>
+                    </div>
+                </div>
+              )
+            })
+        }  
     </div>
   )
 }
