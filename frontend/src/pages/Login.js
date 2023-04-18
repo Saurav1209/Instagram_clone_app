@@ -1,5 +1,6 @@
+
 import React,{useState, useContext} from 'react'
-import { Link, useNavigate} from 'react-router-dom'
+import { Link, json, useNavigate} from 'react-router-dom'
 import M from 'materialize-css'
 import {UserContext} from '../App'
 
@@ -34,10 +35,12 @@ function Login() {
         M.toast({html : data.error, classes: "#c62828 red darken-3"})
       }
       else{
+
         localStorage.setItem("token", data.token);
         localStorage.setItem("userInfo",JSON.stringify(data.userInfo));
         //dispatch the action and state to the reducer
         dispatch({type:"USER", payload : data.userInfo})
+
         M.toast({html : "Login  Successful!", classes: "#388e3c green darken-2"});
         navigate("/")
       }
