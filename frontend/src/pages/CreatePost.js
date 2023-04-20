@@ -31,7 +31,7 @@ function CreatePost() {
             }
             else{
               M.toast({html : "Post created Successfully", classes: "#388e3c green darken-2"});
-              navigate("/login")
+              navigate("/")
             }
           })
           .catch((error)=>{
