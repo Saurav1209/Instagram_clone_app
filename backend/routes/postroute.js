@@ -7,6 +7,7 @@ const PostModel = mongoose.model("PostModel");
 router.get('/posts', protectedResource, (req, res) => {
     PostModel.find()
         .populate("author", "_id fullName")
+        .populate("comments.commentedBy", "_id fullName")
         .then((dbPosts) => {
             res.status(200).json({ posts: dbPosts });
         })
@@ -18,6 +19,7 @@ router.get('/posts', protectedResource, (req, res) => {
 router.get('/myposts', protectedResource, (req, res) => {
     PostModel.find({ author: req.dbUser._id })
         .populate("author", "_id fullName")
+        .populate("comments.commentedBy", "_id fullName")
         .then((dbPosts) => {
             res.status(200).json({ posts: dbPosts });
         })
@@ -50,6 +52,7 @@ router.put('/like', protectedResource, (req, res) => {
     PostModel.findByIdAndUpdate(req.body.postId, {
         $push: { likes: req.dbUser._id }
     },{new:true})
+        .populate("author", "__id fullName")
         .then((result) => {
              res.status(200).json(result);
         }).catch((err) => {
@@ -63,7 +66,7 @@ router.put('/unlike', protectedResource, (req, res) => {
     }, {
         new: true // return updated record
     })
-        //.populate("author", "__id fullName")
+        .populate("author", "__id fullName")
         // .exec((error, result) => {
         //     if (error) {
         //         return res.status(400).json({ error: error });
@@ -95,34 +98,47 @@ router.put('/comment', protectedResource, (req, res) => {
     })
         .populate("comments.commentedBy", "_id fullName")
         .populate("author", "__id fullName")
-        .exec((error, result) => {
-            if (error) {
-                return res.status(400).json({ error: error });
+        // .exec((error, result) => {
+        //     if (error) {
+        //         return res.status(400).json({ error: error });
 
-            }
-            else {
-                res.json(result);
-            }
-        })
+        //     }
+        //     else {
+        //         res.json(result);
+        //     }
+        // })
+        .then((result) => {
+            res.status(200).json(result)
+       }).catch((err) => {
+           console.log(err);
+          res.status(400).json({ error: "jio re bahubali" });
+       })
 });
 
 router.delete("/deletepost/:postId", protectedResource, (req, res) => {
-    PostModel.findOne({ _id: req.params.postId })
-        .populate("author", "_id")
-        .exec((error, post) => {
-            if (error || !post) {
-                return res.status(400).json({ error: error });
-            }
-            //check if post user is same as logged in user
-            if (post.author._id.toString() === req.dbUser._id.toString()) {
-                post.remove()
-                    .then((data) => {
-                        res.json({ result: "Post deleted Successfully " })
-                    })
-                    .catch((e) => {
-                        console.log(e);
-                    })
-            }
+    PostModel.findOneAndDelete({ _id: req.params.postId })
+        // .populate("author", "_id")
+        // .exec((error, post) => {
+        //     if (error || !post) {
+        //         return res.status(400).json({ error: error });
+        //     }
+        //     //check if post user is same as logged in user
+        //     if (post.author._id.toString() === req.dbUser._id.toString()) {
+        //         post.remove()
+        //             .then((data) => {
+        //                 res.json({ result: "Post deleted Successfully " })
+        //             })
+        //             .catch((e) => {
+        //                 console.log(e);
+        //             })
+        //     }
+        // })
+        .then((post)=>{
+            if(post)
+                res.json({post: post})
+        })
+        .catch((err)=>{
+            return res.status(400).json({ error: err });
         })
 
 });
