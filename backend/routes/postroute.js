@@ -49,16 +49,31 @@ router.post('/createpost', protectedResource, (req, res) => {
 
 
 router.put('/like', protectedResource, (req, res) => {
-    PostModel.findByIdAndUpdate(req.body.postId, {
-        $push: { likes: req.dbUser._id }
-    },{new:true})
-        .populate("author", "__id fullName")
-        .then((result) => {
-             res.status(200).json(result);
-        }).catch((err) => {
-            console.log(err);
-            res.status(400).json({ error: "jio re bahubali" });
-        })
+
+    var found;
+    PostModel.findById(req.body.postId).then((result)=>{
+        if(result.likes.includes(req.dbUser._id)){
+            res.status(201).json({message:"Already Liked"})
+        }
+        else{
+            PostModel.findByIdAndUpdate(req.body.postId, {
+                $push: { likes: req.dbUser._id }
+            },{new:true})
+                .then((result) => {
+                     res.status(200).json(result);
+                }).catch((err) => {
+                    console.log(err);
+                    res.status(400).json({ error: "jio re bahubali" });
+                })
+        }
+        
+        
+    
+    }).catch((err)=>{
+        res.status(400).json({ error: "jio re kattappa" });
+    })
+
+    
 });
 router.put('/unlike', protectedResource, (req, res) => {
     PostModel.findByIdAndUpdate(req.body.postId, {
