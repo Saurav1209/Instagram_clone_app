@@ -52,24 +52,27 @@ function Signup() {
     <div className="login-container">
       <div className="card login-card input-field">
         <h2>Instagram</h2>
-        <input 
-          type="text" placeholder="Full name"
-          value={fullName}
-          onChange={(event)=> setFullName(event.target.value)}
-          
-        />
-        <input 
-          type="text" placeholder="Email"
-          value={email}
-          onChange={(event)=> setEmail(event.target.value)}  
-         
-        />
-        <input 
-          type="password" placeholder="Password"
-          value={password}
-          onChange={(event)=> setPassword(event.target.value)}
-        />
-        <button onClick={()=>register()} className="btn waves-effect waves-light btn #64b5f6 blue darken-1">Signup</button>
+        <div>
+            <input 
+              type="text" placeholder="Full name"
+              value={fullName}
+              onChange={(event)=> setFullName(event.target.value)}
+              
+            />
+            <input 
+              type="text" placeholder="Email"
+              value={email}
+              onChange={(event)=> setEmail(event.target.value)}  
+            
+            />
+            <input 
+              type="password" placeholder="Password"
+              value={password}
+              onChange={(event)=> setPassword(event.target.value)}
+            />
+        </div>
+       
+        <button onClick={()=>register()} className="btn waves-effect waves-light btn #d32f2f red darken-1">Signup</button>
         <h6>
           <Link to="/login">Already have an account ?</Link>
         </h6>

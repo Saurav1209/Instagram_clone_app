@@ -113,38 +113,58 @@ function Home() {
               return(
                 <div className="card home-card" key={key}>
                     <h5 style={{padding:"10px"}}>
-                      {post.author.fullName}
+                      {post.author.fullName} <br/> 
+                      
                       {post.author._id == state._id
                                     && <i onClick={() => deletePost(post._id)}
                                         style={{ color: "red", cursor: "pointer", float: "right", fontSize: "34px" }}
                                         className="material-icons">delete_forever</i>}
+                      <h6 style={{ fontWeight:"500", marginRight:"10px"}}>{post.title}</h6>
                     </h5>
+                    
                     <div className="card-image">
                     <img src={post.image}/>
       
                     </div>
                     <div className="card-content">
-                    <i className="material-icons" style={{color: "red" , marginRight:"10px" } }>favorite</i>
-                    <i onClick={() => likeUnlike(post._id, '/like')} className="material-icons" style={{color: "blue", marginRight:"10px", cursor: "pointer"}}>thumb_up</i>
-                    <i onClick={() => likeUnlike(post._id, '/unlike')} className="material-icons" style={{color: "red", cursor: "pointer"}}>thumb_down</i>
-                    <h6>{post.likes.length} likes</h6>
-                    <h6>{post.title}</h6>
-                      <p>{post.body}</p>
+                    <div >
+                      <div className="likesection">
+                        <i className="material-icons" style={{color: "#d32f2f" , marginRight:"10px" } }>favorite</i>
+                          <i onClick={() => likeUnlike(post._id, '/like')} className="material-icons" style={{color: "hwb(240 10% 0%)", marginRight:"10px", cursor: "pointer"}}>thumb_up</i>
+                          <i onClick={() => likeUnlike(post._id, '/unlike')} className="material-icons" style={{color: "#d32f2f", cursor: "pointer"}}>thumb_down</i>
+                       </div>
+                       <div>
+                       <h6>{post.likes.length} likes</h6> 
+                       </div>
+                    </div>
+                    
+                    {/* <h6 style={{ fontWeight:"500", marginRight:"10px"}}>{post.title}</h6> */}
+                    {/* <h5 style={{padding:"10px"}}> */}
+                    <p>{post.author.fullName} : {post.body}</p>  
+                    <p></p>
+                    {/* </h5> */}
+                    <div className="commentsection">
                       {
                         post.comments.length >0 ?
-                        <h6 style={{ fontWeight:"600"}}>Comments </h6> : " "
+                        <h6 style={{ 
+                          fontWeight:"600"}}>Comments </h6> : " "
                       }
                       
                       {
                         post.comments.map((comment) =>{
                           return (
-                          <h6 key={post._id}>
-                            <span style={{ fontWeight:"500", marginRight:"10px"}}>{comment.commentedBy.fullName} : </span>
-                            <span>{comment.commentText}</span>
+                          <h6 key={post._id} className="comm">
+                            <span style={{ fontWeight:"400",
+                            fontSize:"13px" ,
+                            marginRight:"10px"}}>{comment.commentedBy.fullName} : </span>
+                            <span style={{ fontWeight:"50",
+                            fontSize:"13px" , marginRight:"10px"}}>{comment.commentText}</span>
                           </h6>)
                         })
                       }
-                      <form onSubmit={(event)=>{submitComment(event, post._id)}}>
+                    </div>
+                      
+                      <form className="form-class" onSubmit={(event)=>{submitComment(event, post._id)}}>
                         <input  type = "text" placeholder=" Enter comment"/>
                       </form>
                       

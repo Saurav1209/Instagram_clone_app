@@ -2,6 +2,7 @@
 import React,{useState, useContext} from 'react'
 import { Link, json, useNavigate} from 'react-router-dom'
 import M from 'materialize-css'
+import './login.css'
 import {UserContext} from '../App'
 
 function Login() {
@@ -57,18 +58,21 @@ function Login() {
 
       <div className="card login-card input-field">
         <h2>Instagram</h2>
-        <input 
-          type="text" placeholder="Email"
-          value={email}
-          onChange={(event)=> setEmail(event.target.value)}  
-         
-        />
-        <input 
-          type="password" placeholder="Password"
-          value={password}
-          onChange={(event)=> setPassword(event.target.value)}
-        />
-        <button onClick={()=>login()} className="btn waves-effect waves-light btn #64b5f6 blue darken-1">Login</button>
+        <div className="ipfield">
+            <input 
+              type="text" placeholder="Email"
+              value={email}
+              onChange={(event)=> setEmail(event.target.value)}  
+            
+            />
+            <input 
+              type="password" placeholder="Password"
+              value={password}
+              onChange={(event)=> setPassword(event.target.value)}
+            />
+        </div>
+        
+        <button onClick={()=>login()} className="btn waves-effect waves-light btn #d32f2f red darken-1">Login</button>
         <h6>
           <Link to="/signup">Don't have an account ?</Link>
         </h6>
