@@ -2,4 +2,40 @@
     max-width: 550px;
     height: max-content ;
     margin: 25px auto ;
+    padding: 10px !important;
 }
+.card-content{
+    padding-top: 10px !important;
+}
+.card{
+    border-radius: 20px;
+}
+.commentsection{
+    padding-top: 5px;
+}
+.likesection{
+    float: right;
+}
+/* form{
+    margin-top: 5px !important;
+    padding: 0px;
+    padding-left: 0px;
+}
+ */
+ .comm{
+    margin-top: 3px !important;
+ }
+input[placeholder]{
+    color: aliceblue ;
+}
+/* .form-class{
+    height: 5% !important;
+}
+input[placeholder]{
+    border: solid rgb(239, 237, 237)  !important;
+    border-width: 1.5px !important;
+    border-top-right-radius: 40px !important;
+    border-top-left-radius: 40px !important;
+    border-bottom-left-radius: 40px !important;
+    border-bottom-right-radius: 40px !important;
+} */

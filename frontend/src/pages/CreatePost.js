@@ -73,7 +73,8 @@ function CreatePost() {
             onChange = {(event) => setBody(event.target.value)}
             type="text" placeholder="post content"/>
         <div className="file-field input-field">
-        <div className="btn #64b5f6 blue darken-1">
+        <div className="btn #d32f2f red darken-1">
+        {/* #64b5f6 blue darken-1 */}
                 <span>Upload Post Image</span>
                 <input type="file" onChange={(event) => setImage(event.target.files)}/>
             </div>
@@ -81,7 +82,7 @@ function CreatePost() {
                 <input className="file-path validate" type="text"/>
             </div>
         </div>
-        <button onClick={()=> submitPost()} className="btn waves-effect waves-light btn #64b5f6 blue darken-1">Submit Post</button>
+        <button onClick={()=> submitPost()} className="btn waves-effect waves-light btn #d32f2f red darken-1">Submit Post</button>
     </div>
   )
 }
