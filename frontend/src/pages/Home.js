@@ -15,7 +15,8 @@ function Home() {
       .then(response=>response.json())
       .then(function(data){
         console.log(data);
-        setPosts(data.posts);
+        var postArray= data.posts.reverse();
+        setPosts(postArray);
         
       })
       .catch((error)=>{
@@ -129,9 +130,15 @@ function Home() {
                     <div className="card-content">
                     <div >
                       <div className="likesection">
-                        <i className="material-icons" style={{color: "#d32f2f" , marginRight:"10px" } }>favorite</i>
-                          <i onClick={() => likeUnlike(post._id, '/like')} className="material-icons" style={{color: "hwb(240 10% 0%)", marginRight:"10px", cursor: "pointer"}}>thumb_up</i>
-                          <i onClick={() => likeUnlike(post._id, '/unlike')} className="material-icons" style={{color: "#d32f2f", cursor: "pointer"}}>thumb_down</i>
+                        {/* <i className="material-icons" style={{color: "#d32f2f" , marginRight:"10px" } }>favorite</i> */}
+                        {
+                          post.likes.includes(state._id)
+                          ?<i onClick={() => likeUnlike(post._id, '/unlike')} className="material-icons" style={{color: "#d32f2f", cursor: "pointer"}}>thumb_down</i>
+                          :
+                          <i onClick={() => likeUnlike(post._id, '/like')} className="material-icons" style= {{color: "hwb(240 10% 0%)", marginRight:"10px", cursor: "pointer"}}>thumb_up</i>
+                        }
+                          
+                          
                        </div>
                        <div>
                        <h6>{post.likes.length} likes</h6> 
