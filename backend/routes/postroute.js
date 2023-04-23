@@ -59,6 +59,8 @@ router.put('/like', protectedResource, (req, res) => {
             PostModel.findByIdAndUpdate(req.body.postId, {
                 $push: { likes: req.dbUser._id }
             },{new:true})
+            .populate("author", "__id fullName")
+            .populate("comments.commentedBy", "_id fullName")
                 .then((result) => {
                      res.status(200).json(result);
                 }).catch((err) => {
@@ -82,6 +84,7 @@ router.put('/unlike', protectedResource, (req, res) => {
         new: true // return updated record
     })
         .populate("author", "__id fullName")
+        .populate("comments.commentedBy", "_id fullName")
         // .exec((error, result) => {
         //     if (error) {
         //         return res.status(400).json({ error: error });
