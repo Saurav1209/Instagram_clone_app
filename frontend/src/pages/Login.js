@@ -1,25 +1,26 @@
 
 import React,{useState, useContext} from 'react'
-import { Link, json, useNavigate} from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import M from 'materialize-css'
 import './login.css'
 import {UserContext} from '../App'
 
 function Login() {
-  const {state, dispatch} = useContext(UserContext);
+  const { dispatch} = useContext(UserContext);
   const navigate = useNavigate() ;
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
-
+  const url = process.env.REACT_APP_BACKEND_URL
+  console.log(url);
   const login = ()=>{
-
+   // eslint-disable-next-line
     if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
     {
       M.toast({html : "Enter valid email", classes: "#c62828 red darken-3"})
       return 
     }
 
-    fetch("/login",{
+    fetch(url+"/login",{
       method:"post",
       headers : {
         "Content-Type" : "application/json"

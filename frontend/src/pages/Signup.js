@@ -10,9 +10,10 @@ function Signup() {
   const [fullName,setFullName] = useState("");
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
+  const url = process.env.REACT_APP_BACKEND_URL
 
   const register = ()=>{
-
+    /* eslint-disable no-useless-escape*/
     if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
     {
       M.toast({html : "Enter valid email", classes: "#c62828 red darken-3"})
@@ -21,7 +22,7 @@ function Signup() {
 
 
 
-    fetch("/register",{
+    fetch(url+"/register",{
       method:"post",
       headers : {
         "Content-Type" : "application/json"

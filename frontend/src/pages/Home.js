@@ -4,9 +4,11 @@ import './Home.css'
 
 function Home() {
   const [posts, setPosts] = useState([]);//initialising empty array
-  const { state, dispatch } = useContext(UserContext);
+  const { state} = useContext(UserContext);
+  const url = process.env.REACT_APP_BACKEND_URL
+
   useEffect(()=>{
-      fetch("/posts",{
+      fetch(url+"/posts",{
         method:"get",
         headers : {
           "Authorization": "Bearer " + localStorage.getItem("token")
@@ -22,6 +24,7 @@ function Home() {
       .catch((error)=>{
         console.log(error);
       });
+    // eslint-disable-next-line
   },[]);//load only once when component is mounting/loading
   
   const likeUnlike = (postId, url) =>{
@@ -36,7 +39,7 @@ function Home() {
     .then(response=>response.json())
     .then(function(updatedPost){
       const newPostArr = posts.map((oldPost)=>{
-        if(oldPost._id == updatedPost._id)
+        if(oldPost._id === updatedPost._id)
         {
           return updatedPost ;
         }
@@ -67,7 +70,7 @@ function Home() {
     .then(response=>response.json())
     .then(function(updatedPost){
       const newPostArr = posts.map((oldPost)=>{
-        if(oldPost._id == updatedPost._id)
+        if(oldPost._id === updatedPost._id)
         {
           return updatedPost ;
         }
@@ -85,7 +88,7 @@ function Home() {
 
   const deletePost = (postId) => {
 
-    fetch(`/deletepost/${postId}`, {
+    fetch(url+`/deletepost/${postId}`, {
         method: "delete",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("token")
@@ -113,17 +116,18 @@ function Home() {
             posts.map((post,key)=>{
               return(
                 <div className="card home-card" key={key}>
-                    <h5 style={{paddingLeft:"20px"}}>
-                      {post.author.fullName} 
-                      {post.author._id == state._id
+                    <h5 style={{padding:"10px"}}>
+                      {post.author.fullName} <br/> 
+                      
+                      {post.author._id === state._id
                                     && <i onClick={() => deletePost(post._id)}
-                                        style={{ color: "red", cursor: "pointer",marginRight:"10px", float: "right", fontSize: "34px" }}
-                                        className="material-icons">delete_forever</i>}</h5> 
-                      <h6 style={{ fontWeight:"500",paddingLeft:"20px",marginTop:"10px", marginRight:"10px"}}>{post.title}</h6>
-                    {/* </h5> */}
+                                        style={{ color: "red", cursor: "pointer", float: "right", fontSize: "34px" }}
+                                        className="material-icons">delete_forever</i>}
+                      <h6 style={{ fontWeight:"500", marginRight:"10px"}}>{post.title}</h6>
+                    </h5>
                     
                     <div className="card-image">
-                    <img src={post.image} style={{paddingLeft:"20px",paddingRight:"20px",marginTop:"10px", marginRight:"10px"}}/>
+                    <img src={post.image} alt='post_image'/>
       
                     </div>
                     <div className="card-content">
@@ -132,11 +136,11 @@ function Home() {
                         {/* <i className="material-icons" style={{color: "#d32f2f" , marginRight:"10px" } }>favorite</i> */}
                         {
                           post.likes.includes(state._id)
-                          ?<i onClick={() => likeUnlike(post._id, '/unlike')} className="material-icons" style={{color: "#d32f2f",marginRight:"5px", cursor: "pointer"}}>favorite</i>
+                          ?<i onClick={() => likeUnlike(post._id, '/unlike')} className="material-icons" style={{color: "#d32f2f", cursor: "pointer"}}>thumb_down</i>
                           :
-                          <i onClick={() => likeUnlike(post._id, '/like')} className="material-icons" style= {{color:"white" , marginRight:"5px", cursor: "pointer"}}>favorite_border</i>
+                          <i onClick={() => likeUnlike(post._id, '/like')} className="material-icons" style= {{color: "hwb(240 10% 0%)", marginRight:"10px", cursor: "pointer"}}>thumb_up</i>
                         }
-                          {/* blue color : "hwb(240 10% 0%)" */}
+                          
                           
                        </div>
                        <div>
@@ -157,9 +161,9 @@ function Home() {
                       }
                       
                       {
-                        post.comments.map((comment) =>{
+                        post.comments.map((comment, key) =>{
                           return (
-                          <h6 key={post._id} className="comm">
+                          <h6 key={key} className="comm">
                             <span style={{ fontWeight:"400",
                             fontSize:"13px" ,
                             marginRight:"10px"}}>{comment.commentedBy.fullName} : </span>

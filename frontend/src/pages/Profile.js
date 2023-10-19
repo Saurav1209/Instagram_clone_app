@@ -5,10 +5,11 @@ import { UserContext } from '../App';
 function Profile() {
 
   const [myposts, setMyposts] = useState([]);
-  const {state, dispatch} = useContext(UserContext);
+  const {state} = useContext(UserContext);
+  const url = process.env.REACT_APP_BACKEND_URL
   
   useEffect(()=>{
-    fetch("/myposts",{
+    fetch(url+"/myposts",{
       method:"get",
       headers : {
         "Authorization": "Bearer " + localStorage.getItem("token")
@@ -22,13 +23,14 @@ function Profile() {
     .catch((error)=>{
       console.log(error);
     });
+    // eslint-disable-next-line
   },[]);
 
   return (
     <div className="main-container">
       <div className="profile-container">
         <div>
-          <img style={{width : "166px", height:"166px", borderRadius:"83px"}} src="https://media.istockphoto.com/id/1392944438/nl/foto/portrait-of-handsome-attractive-positive-curly-haired-indian-or-arabian-guy-wearing-white.jpg?s=612x612&w=0&k=20&c=PpDoDdF1_3Jo8WDJsv2CYibbAwHdxzjX_v3mClz2nbQ="/>
+          <img style={{width : "166px", height:"166px", borderRadius:"83px"}} alt='profile' src="https://media.istockphoto.com/id/1392944438/nl/foto/portrait-of-handsome-attractive-positive-curly-haired-indian-or-arabian-guy-wearing-white.jpg?s=612x612&w=0&k=20&c=PpDoDdF1_3Jo8WDJsv2CYibbAwHdxzjX_v3mClz2nbQ="/>
         </div>
         <div className="details-section">
           <h4>{state ?state.fullName : "Loading.."}</h4>
@@ -42,9 +44,9 @@ function Profile() {
       </div>
       <div className="posts">
         {
-          myposts.map((post)=>{
+          myposts.map((post, key)=>{
             return(
-              <img src={post.image} className="post" alt={post.title} key={post._id} />
+              <img src={post.image} className="post" alt={post.title} key={key} />
             )
           })
         }

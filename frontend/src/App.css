@@ -15,8 +15,8 @@ a{
     margin: 10px auto;
 }
 .input-field input:focus {
-    border-bottom: 1px solid rgb(232,210,9) !important; 
-    box-shadow: 0 1px 0 0 rgb(232, 210, 9) !important;
+    border-bottom: 1px solid rgb(42,39,190) !important; 
+    box-shadow: 0 1px 0 0 rgb(42,39,190) !important;
   }
 
 

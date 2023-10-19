@@ -13,8 +13,7 @@ export const UserContext = createContext();
 
 const CustomRouting = () =>{
   const navigate = useNavigate();
-  const {state, dispatch} = useContext(UserContext);
-  
+  const {dispatch} = useContext(UserContext);
   useEffect(()=>{
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     if(userInfo){
@@ -24,6 +23,7 @@ const CustomRouting = () =>{
     else{
       navigate('/login');
     }
+    // eslint-disable-next-line
   }, []);//called when component mount and get called only once
 
   return(//switch used in old version

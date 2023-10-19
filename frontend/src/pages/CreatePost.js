@@ -8,10 +8,10 @@ function CreatePost() {
     const [title, setTitle] = useState("") ;
     const [body, setBody] = useState("") ;
     const [image, setImage] = useState("") ;
-    
+    const url = process.env.REACT_APP_BACKEND_URL
     useEffect(() => {
         if(image){
-          fetch("/createpost",{
+          fetch(url+"/createpost",{
             method:"post",
             headers : {
               "Content-Type" : "application/json",
@@ -38,6 +38,7 @@ function CreatePost() {
             console.log(error);
         });
         }
+        // eslint-disable-next-line
       }, [image]);
 
     const submitPost = async ()=> {
