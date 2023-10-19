@@ -1,13 +1,24 @@
 import React,{useState, useEffect, useContext} from 'react'
 import { UserContext } from '../App';
 import './Home.css'
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [posts, setPosts] = useState([]);//initialising empty array
   const { state} = useContext(UserContext);
   const url = process.env.REACT_APP_BACKEND_URL
-
+  const navigate = useNavigate();
+  const {dispatch} = useContext(UserContext);
   useEffect(()=>{
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if(userInfo){
+      dispatch({type:"USER", payload : userInfo})
+      navigate('/')
+    }
+    else{
+      navigate('/login');
+    }
+
       fetch(url+"/posts",{
         method:"get",
         headers : {
