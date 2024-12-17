@@ -27,8 +27,8 @@ function Home() {
     // eslint-disable-next-line
   }, []);//load only once when component is mounting/loading
 
-  const likeUnlike = (postId, url) => {
-    fetch(url, {
+  const likeUnlike = (postId, url1) => {
+    fetch(url+ url1, {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -56,36 +56,52 @@ function Home() {
   }
 
   const submitComment = (event, postId) => {
-    event.preventDefault(); //avoid page refresh
+    event.preventDefault(); // Avoid page refresh
     const commentText = event.target[0].value;
+  
     console.log("Form Submitted:", commentText, "Post ID:", postId);
-
-    fetch("/comment", {
-      method: "put",
+  
+    // Check if token exists
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found. User is not logged in.");
+      alert("User not logged in. Please login to comment.");
+      return;
+    }
+  
+    fetch(url +"/comment", {
+      method: "PUT",
       headers: {
+        "Authorization": "Bearer " + token,
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token")
       },
       body: JSON.stringify({ commentText: commentText, postId: postId })
     })
-    
-      .then(response => response.json())
-      .then(function (updatedPost) {
-        const newPostArr = posts.map((oldPost) => {
-          if (oldPost._id === updatedPost._id) {
-            return updatedPost;
-          }
-          else {
-            return oldPost;
-          }
-        })
-        console.log(newPostArr)
-        setPosts(newPostArr);
+      .then(response => {
+        console.log("Response Status:", response.status);
+        if (!response.ok) {
+          throw new Error(`Failed to add comment. Status: ${response.status}`);
+        }
+        return response.json();
       })
-      .catch((error) => {
-        console.log(error);
+      .then(updatedPost => {
+        console.log("Updated Post from Server:", updatedPost);
+  
+        // Update the posts array with the new comment
+        const newPostArr = posts.map(oldPost => 
+          oldPost._id === updatedPost._id ? updatedPost : oldPost
+        );
+  
+        console.log("New Post Array:", newPostArr);
+        setPosts(newPostArr);
+        event.target[0].value = ""; // Clear input field after success
+      })
+      .catch(error => {
+        console.error("Error adding comment:", error.message);
+        alert("Failed to add comment. Please try again.");
       });
-  }
+  };
+  
 
   const deletePost = (postId) => {
 

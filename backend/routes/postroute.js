@@ -102,33 +102,32 @@ router.put('/unlike', protectedResource, (req, res) => {
        })
 });
 router.put('/comment', protectedResource, (req, res) => {
-
+    console.log(req.body);
+    // console.log("hello world!");
     const comment = {
         commentText: req.body.commentText,
         commentedBy: req.dbUser._id
     };
 
+   console.log("comment",comment);
+   
 
-    PostModel.findByIdAndUpdate(req.body.postId, {
+   PostModel.findByIdAndUpdate(req.body.postId, {
         $push: { comments: comment }
     }, {
         new: true // return updated record
     })
         .populate("comments.commentedBy", "_id fullName")
         .populate("author", "__id fullName")
-        // .exec((error, result) => {
-        //     if (error) {
-        //         return res.status(400).json({ error: error });
-
-        //     }
-        //     else {
-        //         res.json(result);
-        //     }
-        // })
+    
         .then((result) => {
-            res.status(200).json(result)
+            console.log("Updated Post:", result);
+            res.status(200).json(result);
+            
        }).catch((err) => {
            console.log(err);
+           console.log("cmnt not addded.");
+
           res.status(400).json({ error: "jio re bahubali" });
        })
 });
