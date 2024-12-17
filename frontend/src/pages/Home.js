@@ -68,6 +68,7 @@ function Home() {
       },
       body: JSON.stringify({ commentText: commentText, postId: postId })
     })
+    
       .then(response => response.json())
       .then(function (updatedPost) {
         const newPostArr = posts.map((oldPost) => {

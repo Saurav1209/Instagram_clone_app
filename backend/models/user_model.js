@@ -1,6 +1,5 @@
-const req = require("express/lib/request");
-
 const mongoose = require('mongoose') ;
+const { Schema } = mongoose;
 const userSchema = new mongoose.Schema({
     fullName:{
         type: String,
@@ -17,4 +16,6 @@ const userSchema = new mongoose.Schema({
     }
 })  ;
 
-mongoose.model("UserModel", userSchema) ;
+// mongoose.model("UserModel", userSchema) ;
+const User = mongoose.model("UserModel", userSchema);
+module.exports = User;

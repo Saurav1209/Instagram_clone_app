@@ -1,40 +1,39 @@
-const req = require("express/lib/request");
+const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema.Types;
 
-const mongoose = require('mongoose') ;
-const {ObjectId} = mongoose.Schema.Types ;
-
+// Import the User model
+const User = require('./user_model');
 
 const postSchema = new mongoose.Schema({
-   title:{
+    title: {
         type: String,
-        required :true
-         
+        required: true
     },
-    body:{
+    body: {
         type: String,
-        required :true
+        required: true
     },
-    image :{
+    image: {
         type: String,
-        required :true
+        required: true
     },
-    likes:[
+    likes: [
         {
             type: ObjectId,
-            ref: "UserModel"
+            ref: 'UserModel'
         }
     ],
-    comments:[
+    comments: [
         {
-           commentText: String,
-           commentedBy: {type: ObjectId,  ref: "UserModel"}
-           
+            commentText: String,
+            commentedBy: { type: ObjectId, ref: 'UserModel' }
         }
     ],
-    author :{
-        type: ObjectId ,
-        ref: "UserModel"
+    author: {
+        type: ObjectId,
+        ref: 'UserModel'
     }
-})  ;
+});
 
-mongoose.model("PostModel", postSchema) ;
+const Post = mongoose.model('PostModel', postSchema);
+module.exports = Post;

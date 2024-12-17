@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken') ;
 const {JWT_SECRET} = require('../config') ;
 
 const mongoose = require('mongoose') ;
-const UserModel = mongoose.model("UserModel") ;
-
+// const UserModel = mongoose.model("UserModel") ;
+const UserModel = require('../models/user_model');
 module.exports = (req, res, next) => {
     //authorization  -> bearer token
     const{authorization} = req.headers ;
