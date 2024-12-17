@@ -15,7 +15,7 @@ const Navbar =() =>{
                 <li><Link to="/create-post">CreatePost</Link></li>,
                 <li><Link to="/profile">Profile</Link></li>,
                 <li>
-                    <button onClick={()=> logout()} className="btn waves-effect waves-light btn #d32f2f red darken-1">Logout</button>
+                    <button onClick={()=> logout()} className="btn mx-2 waves-effect waves-light btn #d32f2f red darken-1">Logout</button>
                 </li>  
             ]
         }

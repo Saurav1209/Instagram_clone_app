@@ -102,7 +102,7 @@ router.put('/unlike', protectedResource, (req, res) => {
        })
 });
 router.put('/comment', protectedResource, (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     // console.log("hello world!");
     const comment = {
         commentText: req.body.commentText,
@@ -121,12 +121,12 @@ router.put('/comment', protectedResource, (req, res) => {
         .populate("author", "__id fullName")
     
         .then((result) => {
-            console.log("Updated Post:", result);
+            // console.log("Updated Post:", result);
             res.status(200).json(result);
             
        }).catch((err) => {
            console.log(err);
-           console.log("cmnt not addded.");
+        //    console.log("cmnt not addded.");
 
           res.status(400).json({ error: "jio re bahubali" });
        })

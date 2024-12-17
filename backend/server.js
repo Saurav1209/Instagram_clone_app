@@ -2,12 +2,14 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
-const PORT = 5000;
+require('dotenv').config();
+const PORT = process.env.PORT || 5000; // Default to 3000 if PORT is undefined
+const jwtSecret = process.env.JWT_SECRET_KEY;
+const URL_MONGO = process.env.MONGODB_URI;
 
 app.use(cors()); // Enable CORS
 
 // MongoDB connection
-const URL_MONGO = "mongodb+srv://myappuser:sMjQJT5Y5Ui2LhoJ@cluster0.mpaikjr.mongodb.net/test";
 
 mongoose.connect(URL_MONGO, { useNewUrlParser: true, useUnifiedTopology: true });
 

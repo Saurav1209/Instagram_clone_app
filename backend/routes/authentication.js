@@ -4,7 +4,8 @@ const mongoose = require('mongoose') ;
 const UserModel = require('../models/user_model') ;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken') ;
-const {JWT_SECRET} = require('../config') ;
+// const {JWT_SECRET} = require('../config') ;
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 const protectedResource = require('../middleware/protectedResource');
 
@@ -51,7 +52,7 @@ router.post('/login',(req, res)=>{
 })
 
 router.post('/register',(req, res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     const{fullName, email, password} = req.body ;
     if(!fullName || !password|| !email){
         return res.status(400).json({error: "one or more mandatory field is empty"});
