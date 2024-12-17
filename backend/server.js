@@ -7,9 +7,20 @@ const PORT = process.env.PORT || 5000; // Default to 3000 if PORT is undefined
 const jwtSecret = process.env.JWT_SECRET_KEY;
 const URL_MONGO = process.env.MONGODB_URI;
 
-app.use(cors()); // Enable CORS
+const allowedOrigins = ['http://localhost:3000', 'https://insta-snap-two.vercel.app'];
 
-// MongoDB connection
+// Use CORS middleware to allow requests from the specified origins
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);  // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS'), false);  // Reject the request
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // You can specify allowed methods
+  credentials: true,  // Allow credentials if necessary (cookies, authentication)
+}));
 
 mongoose.connect(URL_MONGO, { useNewUrlParser: true, useUnifiedTopology: true });
 
