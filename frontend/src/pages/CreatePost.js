@@ -8,7 +8,7 @@ function CreatePost() {
     const [title, setTitle] = useState("") ;
     const [body, setBody] = useState("") ;
     const [image, setImage] = useState("") ;
-    const url = process.env.REACT_APP_BACKEND_URL
+    const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
     useEffect(() => {
         if(image){
           fetch(url+"/createpost",{

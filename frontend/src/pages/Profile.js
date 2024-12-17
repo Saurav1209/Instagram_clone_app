@@ -6,7 +6,7 @@ function Profile() {
 
   const [myposts, setMyposts] = useState([]);
   const {state} = useContext(UserContext);
-  const url = process.env.REACT_APP_BACKEND_URL
+  const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'
   
   useEffect(()=>{
     fetch(url+"/myposts",{

@@ -10,7 +10,7 @@ function Signup() {
   const [fullName,setFullName] = useState("");
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
-  const url = process.env.REACT_APP_BACKEND_URL
+  const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'
 
   const register = ()=>{
     /* eslint-disable no-useless-escape*/

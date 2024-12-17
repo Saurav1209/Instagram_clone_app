@@ -10,7 +10,7 @@ function Login() {
   const navigate = useNavigate() ;
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
-  const url = process.env.REACT_APP_BACKEND_URL ;
+  const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
   console.log(url);
   const login = ()=>{
    // eslint-disable-next-line

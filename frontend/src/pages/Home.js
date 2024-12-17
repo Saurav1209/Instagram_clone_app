@@ -5,7 +5,7 @@ import './Home.css'
 function Home() {
   const [posts, setPosts] = useState([]);//initialising empty array
   const { state } = useContext(UserContext);
-  const url = process.env.REACT_APP_BACKEND_URL
+  const url = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
 
   useEffect(() => {
     fetch(url + "/posts", {
